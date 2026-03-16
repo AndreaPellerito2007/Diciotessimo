@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎂 Festa di Compleanno! 🎉</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <script>
+    function checkPartecipazione() {
+      var siPartecipazione = document.getElementById('si');
+      var telefonoDiv = document.getElementById('telefono_div');
+      var telefonoField = document.getElementById('telefono');
+      if (siPartecipazione.checked) {
+        telefonoDiv.style.display = 'block';
+        telefonoField.required = true;
+      } else {
+        telefonoDiv.style.display = 'none';
+        telefonoField.required = false;
+      }
+    }
+
+    window.onload = function() {
+      var siPartecipazione = document.getElementById('si');
+      var noPartecipazione = document.getElementById('no');
+      siPartecipazione.onclick = checkPartecipazione;
+      noPartecipazione.onclick = checkPartecipazione;
+    }
+  </script>
+</head>
+<body>
+  <div class="confetti-container"></div> 
+  <div class="container animate-pop">
+    <h1 class="titolo animate-glow">🎈 Sei invitato alla mia festa di compleanno! 🎂</h1>
+    <p class="sottotitolo animate-slide-in">Conferma la tua presenza compilando il modulo.</p>
+    <form id="my-form">
+      <label>Nome:</label>
+      <input type="text" name="nome" required class="animate-input"><br>
+      <label>Cognome:</label>
+      <input type="text" name="cognome" required class="animate-input">
+      <label>Parteciperai?</label>
+      <div class="radio-group">
+        <label class="radio-label">
+            <input type="radio" id="si" name="partecipazione" value="si" required>
+            <span>🎊 Sì, ci sarò!</span>
+        </label>
+        <label class="radio-label">
+            <input type="radio" id="no" name="partecipazione" value="no" required>
+            <span>Purtroppo no (meglio)</span>
+        </label>
+      </div>
+      
+      <div id="telefono_div" class="animate-fade-in" style="display:none;">
+        <label>Telefono:</label>
+        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Es. 3331234567">
+      </div>
+      
+      <button id="my-form-button" class="button animate-button">✨ Conferma 🎉</button>
+      <p id="my-form-status"></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("my-form").addEventListener("submit", async function(event) {
+      event.preventDefault(); 
+
+      var form = event.target;
+      var formData = new FormData(form);
+      var partecipazione = formData.get("partecipazione");
+
+      try {
+        let response = await fetch("https://formspree.io/f/mpwqnazq", {
+          method: "POST",
+          body: formData,
+          headers: { "Accept": "application/json" }
+        });
+
+        if (response.ok) {
+          if (partecipazione === "si") {
+            window.location.href = "index2.html"; 
+          } else {
+            window.location.href = "index3.html"; 
+          }
+        } else {
+          document.getElementById("my-form-status").innerText = "Errore nell'invio, riprova.";
+        }
+      } catch (error) {
+        document.getElementById("my-form-status").innerText = "Errore di connessione.";
+      }
+    });
+  </script>
+</body>
+</html>
