@@ -1,25 +1,27 @@
 <!DOCTYPE html>
+<html lang="it">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grazie per aver risposto</title>
-  <link href="style2.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+  <link href="style.css" rel="stylesheet" type="text/css">
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const confettiContainer = document.querySelector(".confetti-container");
 
       function createConfetti() {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 40; i++) {
           let confetti = document.createElement("div");
           confetti.classList.add("confetti");
 
           confetti.style.left = Math.random() * 100 + "vw";
-          let size = Math.random() * 30 + 10;
+          let size = Math.random() * 20 + 20;
           confetti.style.fontSize = size + "px";
-          let emojis = ["🤘🏻"];
+          let emojis = ["🤘", "🏠", "🏍️"];
           confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-          let duration = Math.random() * 5 + 4;
+          let duration = Math.random() * 3 + 4;
           confetti.style.animationDuration = duration + "s";
+          confetti.style.top = "-50px";
 
           confettiContainer.appendChild(confetti);
         }
@@ -28,11 +30,14 @@
       createConfetti();
     });
   </script>
-
-  <div class="confetti-container"></div> 
+</head>
+<body>
+  <div class="confetti-container"></div>
   <div class="container">
-    <h1 class="titolo">🤘🏻Grazie per aver risposto🤘🏻</h1>
-    <p class="sottotitolo">Sono felice che non hai accettato l'invito,statti a casa</p>
+    <h1 class="titolo">🤘 Grazie per aver risposto!</h1>
+    <p class="sottotitolo">Ci dispiace che tu non possa venire, ma apprezziamo la conferma.</p>
+    <p class="sottotitolo" style="font-size: 0.9rem; color: var(--text-muted);">Ci vediamo alla prossima occasione! 🏍️</p>
+    <a href="index.html" class="button" style="display: inline-block; width: auto; padding: 12px 24px; text-decoration: none;">Torna all'invito</a>
   </div>
 </body>
 </html>
